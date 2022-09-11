@@ -28,23 +28,24 @@ public class MemberDAO {
     }
 
     // 회원가입 (멤버 추가 메서드)
-    public void addMember(MemberVO vo) {
+    public void addMember(MemberDTO dto) {
         try {
             Connection con = dataFactory.getConnection();
-            int member_no = vo.getMember_no();
-            String id = vo.getId();
-            String pw = vo.getPw();
-            String name = vo.getName();
-            String nickname = vo.getNickname();
-            String gender = vo.getGender();
-            Date birth = vo.getBirth();
-            String tel = vo.getTel();
-            String email = vo.getEmail();
-            int height = vo.getHeight();
+            int member_no = dto.getMember_no();
+            String id = dto.getId();
+            String pw = dto.getPw();
+            String name = dto.getName();
+            String nickname = dto.getNickname();
+            String gender = dto.getGender();
+            Date birth = dto.getBirth();
+            String tel = dto.getTel();
+            String email = dto.getEmail();
+            int height = dto.getHeight();
+            String pro_img = dto.getPro_img();
             
             String query = "insert into T_member";
-            query += "(member_no, id, pw, name, nickname, gender, birth, tel, email, height)";
-            query += " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            query += "(T_MEMBER_SEQUENCE.NEXTVAL, id, pw, name, nickname, gender, birth, tel, email, height, pro_img)";
+            query += " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
             System.out.println(query);
 
             pstmt = con.prepareStatement(query);
@@ -58,6 +59,7 @@ public class MemberDAO {
             pstmt.setString(8, tel);
             pstmt.setString(9, email);
             pstmt.setInt(10, height);
+            pstmt.setString(11, pro_img);
             
             pstmt.executeUpdate();
             pstmt.close();
@@ -99,13 +101,13 @@ public class MemberDAO {
     }
     
     // 로그인 완료 시 정보 불러오기
-    public MemberVO loginComplet(String _id) {
-    	MemberVO  vo = new MemberVO();
+    public MemberDTO loginComplet(String _id) {
+    	MemberDTO  dto = new MemberDTO();
         try {
             Connection con = dataFactory.getConnection();
             
             // 쿼리문 작성
-            String query = "SELECT member_no, id, pw, name, nickname, gender, birth, tel, email, height ";
+            String query = "SELECT * ";
             query += "FROM T_member ";
             query += "WHERE id = '"+_id+"'";
             System.out.println(query);
@@ -127,17 +129,19 @@ public class MemberDAO {
                 String tel = rs.getString("tel");
                 String email = rs.getString("email");
                 int height = rs.getInt("height");
+                String pro_img = rs.getString("pro_img");
                 
-                vo.setMember_no(member_no);
-                vo.setId(id);
-                vo.setPw(pw);
-                vo.setName(name);
-                vo.setName(nickname);
-                vo.setGender(gender);
-                vo.setBirth(birth);
-                vo.setTel(tel);
-                vo.setEmail(email);
-                vo.setHeight(height);
+                dto.setMember_no(member_no);
+                dto.setId(id);
+                dto.setPw(pw);
+                dto.setName(name);
+                dto.setName(nickname);
+                dto.setGender(gender);
+                dto.setBirth(birth);
+                dto.setTel(tel);
+                dto.setEmail(email);
+                dto.setHeight(height);
+                dto.setPro_img(pro_img);
             }
             
             rs.close();
@@ -146,8 +150,36 @@ public class MemberDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return vo;
+        return dto;
     }
     
+    // 아이디 중복 체크
+    public int idCheck(String _id) {
+    	int count = 0;
+        try {
+            Connection con = dataFactory.getConnection();
+            
+            // 쿼리문 작성
+            String query = "SELECT count(*) ";
+            query += "FROM T_member ";
+            query += "WHERE id = '"+_id+"' ";
+            System.out.println(query);
+            // 쿼리문 저장
+            pstmt = con.prepareStatement(query);
+            
+            // rs의 첫번째 필드값 저장
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+            	count = rs.getInt(1);            	
+            }
+            rs.close();
+            con.close();
+            
+            System.out.println("아이디 중복 체크");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
     
 }

@@ -24,9 +24,9 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 
-		// SQL 문을 수행할 dao, vo 추가
+		// SQL 문을 수행할 dao, dto 추가
 		MemberDAO dao = new MemberDAO();
-		MemberVO vo = new MemberVO();
+		MemberDTO dto = new MemberDTO();
 
 		// 아이디, 비밀번호
 		String id = request.getParameter("e_id");

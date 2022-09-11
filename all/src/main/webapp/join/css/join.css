@@ -7,7 +7,7 @@
 
 body{
     /*j*/
-    background-image: url('./img/back3.jpeg');
+    background-image: url('../img/back3.jpeg');
     background-repeat: no-repeat;
     background-size:cover;
     color: rgb(39, 56, 104);
@@ -146,15 +146,34 @@ input:focus {
     padding-top: 40px;
 }
 
+/* 아이디 중복 확인 */
+#e_idCheck {
+	margin-top: 5px;
+    width: 373px;
+    padding: 13px;
+    border: 1px solid rgb(39, 56, 104);
+    border-radius: 30px;
+    background-color: rgba(245, 245, 220, 0);
+    color: rgb(39, 56, 104);
+    font-size: 13px;
+}
+
+#e_id_check {
+	display: none;
+	color: green;
+}
+
 /* 묶음 - 영역 */
-.e_id, .e_password, .e_password_more, .e_name,
-.e_birth, .e_gender, .e_email, .e_tel, .e_sub {
+.e_id, .e_password, .e_password_more, .e_name, .e_nickname,
+.e_birth, .e_gender, .e_email, .e_tel, .e_sub,
+.e_height, .e_pro_img {
     padding-bottom: 30px;
 }
 
 /* 묶음 - 제목 */
 .e_id > h4, .e_password > h4, .e_password_more > h4,
-.e_name > h4, .e_birth > h4, .e_gender > h4, .e_email > h4, .e_tel > h4 {
+.e_name > h4, .e_birth > h4, .e_gender > h4, .e_email > h4,
+.e_tel > h4, .e_nickname > h4, .e_height > h4, .e_pro_img > h4 {
     padding-bottom: 10px;
     font-size: 13px;
     margin: 0px 30px 0px 350px;
@@ -163,13 +182,24 @@ input:focus {
 
 /* 묶음 - input */
 #e_input_id, #e_input_pass, #e_input_pass_more,
-#e_input_name, #e_input_birth, #e_input_email, #e_input_tel {
+#e_input_name, #e_input_birth, #e_input_email, #e_input_tel,
+#e_input_nickname {
     width: 350px;
     padding: 13px;
     font-size: 13px;
     border-radius: 30px;
     border: 1px solid rgb(255, 255, 255);
     margin: 0px 35px 0px 35px;
+}
+
+/* 키 - input */
+#e_input_height {
+	width: 280px;
+    padding: 13px;
+    font-size: 13px;
+    border-radius: 30px;
+    border: 1px solid rgb(255, 255, 255);
+    margin: 0px 5px 0px 5px;
 }
 
 /* 성별 */
@@ -179,6 +209,30 @@ input:focus {
     border-radius: 30px;
     border: 1px solid rgb(255, 255, 255);
     margin: 0px 35px 0px 35px;
+}
+
+/* 프로필 사진 */
+#e_input_pro_img {
+	display: none;	
+}
+
+.e_input_pro_img_btn {
+	margin: 5px 10px;
+    padding: 13px;
+    border: 1px solid rgb(39, 56, 104);
+    border-radius: 10px;
+    background-color: rgba(245, 245, 220, 0);
+    color: rgb(39, 56, 104);
+    font-size: 13px;
+}
+
+#e_delete_file {
+    padding: 13px;
+    border: 1px solid rgb(39, 56, 104);
+    border-radius: 10px;
+    background-color: rgba(245, 245, 220, 0);
+    color: rgb(39, 56, 104);
+    font-size: 13px;
 }
 
 /* 회원가입 버튼 */
@@ -219,7 +273,7 @@ input:focus {
 #j_box{
     display: flex;
     width: 1100px;
-    height: 1400px;
+    height: 1600px;
     background-color: rgb(228, 234, 253);
     display: inline-block;
     margin-bottom: 30px;

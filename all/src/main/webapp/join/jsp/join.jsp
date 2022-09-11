@@ -8,41 +8,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <link rel="stylesheet" href="css/join.css">
-    <script src="js/join.js"></script>
+    <link rel="stylesheet" href="join/css/join.css">
+    <script src="join/js/join.js"></script>
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <body>
 
-    <div id="j_hi">
-        
-        <!-- <img src="./img/logo.png" id="j_logo"> -->
-        
-        <ul id="j_list">
-            <li class="j_menu1 j_menu">캘린더</li>
-            <li class="j_menu2 j_menu">커뮤니티</li>
-            <li class="j_menu3 j_menu">공지사항</li>
-            <li class="j_menu4 j_menu">운동</li>
-        </ul>
-
-        <div id = j_nav> 
-            <input type ='button' class = "j_btn1 j_btn" onclick="location.href='../login/login.html'" value="로그인">
-            <input type ='button' class = "j_btn2 j_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
-            <input type ='button' class = "j_btn3 j_btn" onclick="location.href='../join/join.html'" value="회원가입">
-        </div>
-    </div>
-
+	<!-- 헤더 -->
+	<%@ include file="/nav/header.jsp" %>
 
 	<section>
-		<div id="j_wrap">
-			<div id="j_box">
+		<form name="e_mainform" enctype="multipart/form-data">
+			<div id="j_wrap">
+				<div id="j_box">
 
-				<form name="e_mainform">
 					<!-- 뒤로가기(로그인하기) -->
 					<div class="e_back">
 						<input type="button" id="e_back_btn"
-							onClick="location.href='../main/main.html'"
-							value="&lt;    메인으로 이동">
+							onClick="location.href='../main/main.html'" value="&lt;메인으로 이동">
 					</div>
 
 					<!-- 로고 -->
@@ -56,7 +41,18 @@
 						<input type="text" name="e_id" id="e_input_id"
 							placeholder="아이디를 입력해 주세요." onfocus="this.placeholder=''"
 							onblur="this.placeholder='아이디를 입력해 주세요.'">
+
+						<!-- 아이디 중복체크 -->
+						<div class="e_idcheck_div">
+							<button type="button" id="e_idCheck">중복 확인</button>
+							<!-- 중복체크 완료시 -->
+							<div id="e_id_check" class="e_checkindex">*사용 가능한 아이디 입니다.
+							</div>
+
+
+						</div>
 					</div>
+
 
 					<!-- 비밀번호 -->
 					<div class="e_password">
@@ -85,6 +81,16 @@
 						<input type="text" name="e_name" id="e_input_name"
 							placeholder="이름을 입력해 주세요." onfocus="this.placeholder=''"
 							onblur="this.placeholder='이름을 입력해 주세요.'">
+					</div>
+
+					<!-- 닉네임 -->
+					<div class="e_nickname">
+						<h4 id="e_h4_nickname">닉네임</h4>
+						<div id="e_nickname_confirm" class="e_errorindex">*2자~5자 이하의
+							한글로 만들어주세요.</div>
+						<input type="text" name="e_nickname" id="e_input_nickname"
+							placeholder="닉네임을 입력해 주세요." onfocus="this.placeholder=''"
+							onblur="this.placeholder='닉네임을 입력해 주세요.'">
 					</div>
 
 					<!-- 생년월일 -->
@@ -128,16 +134,40 @@
 							onblur="this.placeholder='ex) 010-1234-5678'">
 					</div>
 
+					<!-- 키 -->
+					<div class="e_height">
+						<h4 id="e_h4_height">본인의 키</h4>
+						<div id="e_height_confirm" class="e_errorindex">*본인의 키를 제대로
+							입력해주세요.</div>
+						<input type="text" name="e_height" id="e_input_height"
+							placeholder="본인의 키를 입력해 주세요." onfocus="this.placeholder=''"
+							onblur="this.placeholder='본인의 키를 입력해 주세요.'"> <span>cm</span>
+					</div>
+
+					<!-- 프로필 사진 -->
+					<div class="e_pro_img">
+						<h4 id="e_h4_pro_img">프로필 사진</h4>
+						<div id="e_pro_img_confirm" class="e_errorindex">*가로, 세로 각각
+							500px 이하의 jpg/png 파일을 첨부해주세요.</div>
+						<!-- 파일 업로드 -->
+						<label class="e_input_pro_img_btn" for="e_input_pro_img">
+							프로필 사진 업로드 </label> <input type="file" name="e_pro_img" value="none"
+							id="e_input_pro_img">
+						<!-- 업로드 유무, 삭제하기 -->
+						<input type="hidden" id="e_upload" value="N">
+						<button type="button" id="e_delete_file">삭제</button>
+					</div>
+
 					<!-- 회원가입 버튼 -->
 					<div class="e_sub">
-						<input type="submit" id="e_sub_btn" value="회원가입">
+						<input type="submit" id="e_sub_btn" value="회원가입"> <input
+							type="hidden" id="e_sub_btn_YN">
 					</div>
+				</div>
 			</div>
-		</div>
 		</form>
 	</section>
 
 </body>
-<script src="join.js"></script>
 
 </html>

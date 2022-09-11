@@ -2,7 +2,7 @@ package eunbin.loginjoin;
 
 import java.sql.Date;
 
-public class MemberVO {
+public class MemberDTO {
 	private int member_no;
 	private String id;
 	private String pw;
@@ -13,7 +13,7 @@ public class MemberVO {
 	private String tel;
 	private String email;
 	private int height;
-	
+	private String pro_img;
 	
 	public int getMember_no() {
 		return member_no;
@@ -75,7 +75,17 @@ public class MemberVO {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	public String getPro_img() {
+		return pro_img;
+	}
+	public void setPro_img(String pro_img) {
+		this.pro_img = pro_img;
+	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "MemberDTO [member_no=" + member_no + ", id=" + id + ", pw=" + pw + ", name=" + name + ", nickname="
+				+ nickname + ", gender=" + gender + ", birth=" + birth + ", tel=" + tel + ", email=" + email
+				+ ", height=" + height + ", pro_img=" + pro_img + "]";
+	}
 }

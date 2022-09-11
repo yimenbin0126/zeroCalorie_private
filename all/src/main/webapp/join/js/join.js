@@ -1,16 +1,56 @@
 // 전체 유효성 검사
 window.onload = function () {
+    if(document.querySelector('#e_idCheck').style.display =="block"){
+    	alert("이게되네");
+    }
+    
     id_pass();
     name();
+    nickname();
     birth();
     gender();
     email();
+    height();
     tel();
     join();
 };
 
 // 아이디, 패스워드 
 function id_pass() {
+
+	
+	// 중복확인
+	// 중복확인 버튼 - 클릭
+	document.querySelector('#e_idCheck').addEventListener('click', function () {
+		if(document.querySelector('#e_id_check').style.display =="none"
+		&& document.querySelector('#e_input_id').value.length != 0){
+			$.ajax({
+		        url: "/all/join",
+		        type:"POST",
+		        data: {
+		            e_idcheck_click : "Y",
+		            e_input_id : document.querySelector('#e_input_id').value
+		        },
+		        success : function(data){
+		        	console.log("되긴됨");
+		        	if(data==0){
+		        		
+		        	console.log("0");
+		        		document.querySelector('#e_id_check').style.display ="block";
+		        	} else {
+		        	console.log("1");
+		        		alert('이미 존재하는 아이디 입니다.');
+		        	}
+		        },
+		        });
+		} 
+	});
+	
+	// 중복 확인 후 건드렸을 때
+	document.querySelector('#e_input_id').addEventListener('keyup', function () {
+			document.querySelector('#e_id_check').style.display ="none";
+		});
+	
     // 대상, 에러
     var contents = [document.querySelector('#e_input_id'), document.querySelector('#e_input_pass'), document.querySelector('#e_input_pass_more')];
     var confirms = [document.querySelector('#e_id_confirm'), document.querySelector('#e_pass_confirm'), document.querySelector('#e_pass_more_confirm')]
@@ -69,6 +109,24 @@ function name() {
             error_n.style.display = "none";
         } else {
             error_n.style.display = "block";
+        }
+    });
+}
+
+// 닉네임
+function nickname() {
+    var nickname = document.querySelector("#e_input_nickname");
+    var error_nn = document.querySelector("#e_nickname_confirm");
+
+    // 한글만 쓸 수 있음
+    // 유효성 검사
+    const regex_nn = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,5}$/;
+
+    nickname.addEventListener('keyup', function () {
+        if (regex_nn.test(name.value) == true) {
+            error_nn.style.display = "none";
+        } else {
+            error_nn.style.display = "block";
         }
     });
 }
@@ -133,8 +191,7 @@ function email() {
 }
 
 
-
-// 휴대전화
+// 전화번호
 function tel() {
     let phone = document.querySelector('#e_input_tel');
     let error_t = document.querySelector('#e_tel_confirm');
@@ -152,7 +209,25 @@ function tel() {
             error_t.style.display = "block";
         }
     });
+}
 
+// 키
+function height() {
+    var height = document.querySelector("#e_input_height");
+    var error_h = document.querySelector("#e_height_confirm");
+
+    // 숫자만 쓸 수 있음
+    // 유효성 검사
+    const regex_h = /^[0-9]{3,3}$/;
+
+    height.addEventListener('keyup', function () {
+        if (regex_h.test(name.value) == true
+        && height > 100 && height < 200) {
+            error_h.style.display = "none";
+        } else {
+            error_h.style.display = "block";
+        }
+    });
 }
 
 
