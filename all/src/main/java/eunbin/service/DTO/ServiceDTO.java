@@ -1,7 +1,8 @@
-package eunbin.service;
+package eunbin.service.DTO;
 
 import java.sql.Date;
 
+// 게시판 테이블
 public class ServiceDTO {
 	private int bno;
 	private String sv_type;
@@ -13,7 +14,7 @@ public class ServiceDTO {
 	private String description;
 	private Date create_time;
 	private int heart;
-	private int view;
+	private int view_no;
 	private int member_no;
 	
 	public int getBno() {
@@ -76,11 +77,11 @@ public class ServiceDTO {
 	public void setHeart(int heart) {
 		this.heart = heart;
 	}
-	public int getView() {
-		return view;
+	public int getView_no() {
+		return view_no;
 	}
-	public void setView(int view) {
-		this.view = view;
+	public void setView_no(int view_no) {
+		this.view_no = view_no;
 	}
 	public int getMember_no() {
 		return member_no;
@@ -93,7 +94,7 @@ public class ServiceDTO {
 	public String toString() {
 		return "ServiceDTO [bno=" + bno + ", sv_type=" + sv_type + ", group_origin=" + group_origin + ", group_order="
 				+ group_order + ", admin_type=" + admin_type + ", nickname=" + nickname + ", title=" + title
-				+ ", description=" + description + ", create_time=" + create_time + ", heart=" + heart + ", view="
-				+ view + ", member_no=" + member_no + "]";
+				+ ", description=" + description + ", create_time=" + create_time + ", heart=" + heart + ", view_no="
+				+ view_no + ", member_no=" + member_no + "]";
 	}
 }

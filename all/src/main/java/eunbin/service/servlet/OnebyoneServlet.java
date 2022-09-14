@@ -1,4 +1,4 @@
-package eunbin.service;
+package eunbin.service.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,17 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/service/question")
-public class QuestionServlet extends HttpServlet  {
+@WebServlet("/service/oneByone")
+public class OnebyoneServlet extends HttpServlet  {
 
 	// 페이지 뷰
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		RequestDispatcher dispatch = request.getRequestDispatcher("/service/jsp/question.jsp");
+		System.out.println("OnebyoneServlet - get oneByone");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/service/jsp/oneByone.jsp");
 		dispatch.forward(request, response);
-		System.out.println("get question");
 	}
 	
 	// 회원가입
@@ -29,8 +29,6 @@ public class QuestionServlet extends HttpServlet  {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		System.out.println("post question");
-
+		System.out.println("OnebyoneServlet - post oneByone");
 	}
-
 }

@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	import="eunbin.loginjoin.MemberDAO, eunbin.loginjoin.MemberDTO,
-	eunbin.service.DAO.ServiceDAO, eunbin.service.DTO.ServiceDTO" %>
+    pageEncoding="UTF-8"
+    import="eunbin.loginjoin.MemberDAO, eunbin.loginjoin.MemberDTO,
+	eunbin.service.DAO.ServiceDAO, eunbin.service.DTO.ServiceDTO"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>고객센터</title>
-<link rel="stylesheet" href="./css/header.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지</title>
+    <link rel="stylesheet" href="main/main.css">
+    <script src="main/main.js"></script>
 </head>
-
 <body>
-
 	<!-- 헤더 시작 -->
     <div id="j_hi">
         <!-- <img src="./img/logo.png" id="j_logo"> -->
@@ -34,11 +33,13 @@
      		// 로그인 유무
         	if((MemberDTO)session.getAttribute("user") !=null){
         		m_dto = (MemberDTO)session.getAttribute("user");
+        		System.out.println((MemberDTO)session.getAttribute("user"));
+        		System.out.println(m_dto.getNickname());
         %>
-        <div id="e_welcome">
-        	<p>${m_dto.getNickname()}님 환영합니다.</p>
-        </div>
         <div id = e_nav>
+        	<div id="e_welcome">
+        		${m_dto.getNickname()}님 환영합니다.
+        	</div>
         	<form name="e_nav_btn">
 	        	<input type ="hidden" name="e_logout" value="Y">                   
         	</form>
@@ -47,8 +48,8 @@
             <input type ='hidden' class = "j_btn2 j_btn" onclick="location.href='/all/join'" value="회원가입">
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
-            <input type ='button' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='button' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
+            <input type ='button' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='button' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
             <!-- 나타나는 부분 끝 -->
         </div>
         <%
@@ -56,8 +57,8 @@
         %>
         <div id = j_nav>
         	<!-- null 오류 방지용 시작 -->
-            <input type ='hidden' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='hidden' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
+            <input type ='hidden' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='hidden' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
             <input type ='button' class = "j_btn1 j_btn" onclick="location.href='/all/login'" value="로그인">
@@ -70,13 +71,22 @@
     </div>
     <!-- 헤더 끝 -->
 
-	<section>
-			<div id="j_wrap">
-				<div id="j_box">
+	<div id="j_bg" style="margin-top: 170px;">
 
-				</div>
-			</div>
-	</section>
+		<div class="container">
+			<p class="title title1">LET'S
+			<p>
+		</div>
+		<div class="container">
+			<p class="title title2">WORKOUT
+			<p>
+		</div>
+		<div class="container">
+			<p class="title title3">TOGETHER!
+			<p>
+		</div>
+	</div>
+
 
 </body>
 </html>

@@ -19,6 +19,16 @@ function confirm_idpass(){
     function confirm_pass(){
         if(document.querySelector("#e_input_pass").value.length == 0){
             alert("비밀번호를 입력해주세요.");
+        } else {
+        	login();
         }
     }
+    
+    function login(){
+		var e_mainform = document.e_loginform;
+	    e_mainform.method="post";
+	    e_mainform.action="/all/login";
+	    e_mainform.submit();
+	}
 }
+

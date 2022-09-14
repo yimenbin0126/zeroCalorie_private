@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
+    <link rel="stylesheet" href="join/css/header.css">
     <link rel="stylesheet" href="join/css/join.css">
     <script src="join/js/join.js"></script>
     <script
@@ -16,11 +17,30 @@
 
 <body>
 
-	<!-- 헤더 -->
-	<%@ include file="/nav/header.jsp" %>
+	<!-- 헤더 시작 -->
+	<div id="j_hi">
+        <!-- <img src="./img/logo.png" id="j_logo"> -->
+        
+        <ul id="j_list">
+            <li class="j_menu1 j_menu">캘린더</li>
+            <li class="j_menu2 j_menu">커뮤니티</li>
+            <li class="j_menu3 j_menu">공지사항</li>
+            <li class="j_menu4 j_menu">운동</li>
+            <li class="j_menu5 j_menu" onclick="location.href='/all/service/allService'">고객센터</li>
+        </ul>
+        
+        <div id = j_nav>                   
+            <input type ='button' class = "j_btn1 j_btn" onclick="location.href='/all/login'" value="로그인">
+            <input type ='button' class = "j_btn2 j_btn" onclick="location.href='/all/join'" value="회원가입">
+        </div>
+        
+    </div>
+    <!-- 헤더 끝 -->
 
 	<section>
-		<form name="e_mainform" enctype="multipart/form-data">
+		<!-- 프로필 파일 올릴때  -->
+		<!-- <form name="e_mainform" enctype="multipart/form-data"> -->
+		<form name="e_mainform">
 			<div id="j_wrap">
 				<div id="j_box">
 
@@ -48,8 +68,6 @@
 							<!-- 중복체크 완료시 -->
 							<div id="e_id_check" class="e_checkindex">*사용 가능한 아이디 입니다.
 							</div>
-
-
 						</div>
 					</div>
 
@@ -91,6 +109,14 @@
 						<input type="text" name="e_nickname" id="e_input_nickname"
 							placeholder="닉네임을 입력해 주세요." onfocus="this.placeholder=''"
 							onblur="this.placeholder='닉네임을 입력해 주세요.'">
+						
+						<!-- 닉네임 중복체크 -->
+						<div class="e_nickcheck_div">
+							<button type="button" id="e_nickCheck">중복 확인</button>
+							<!-- 중복체크 완료시 -->
+							<div id="e_nick_check" class="e_checkindex">*사용 가능한 닉네임 입니다.
+							</div>
+						</div>
 					</div>
 
 					<!-- 생년월일 -->
@@ -99,8 +125,8 @@
 						<div id="e_birth_confirm" class="e_errorindex">*생년월일을
 							입력해주세요.</div>
 						<input type="text" name="e_birth" id="e_input_birth"
-							placeholder="ex) 2000/06/29" onfocus="this.placeholder=''"
-							onblur="this.placeholder='ex) 2000/06/29'">
+							placeholder="ex) 2000-06-29" onfocus="this.placeholder=''"
+							onblur="this.placeholder='ex) 2000-06-29'">
 					</div>
 
 					<!-- 성별 -->
@@ -109,8 +135,8 @@
 						<div id="e_gender_confirm" class="e_errorindex">*성별을 선택해주세요.</div>
 						<select name="e_gender" id="e_sel_gender">
 							<option value="e_none">선택</option>
-							<option value="e_female">여자</option>
-							<option value="e_male">남자</option>
+							<option value="F">여자</option>
+							<option value="M">남자</option>
 						</select>
 					</div>
 
@@ -144,6 +170,7 @@
 							onblur="this.placeholder='본인의 키를 입력해 주세요.'"> <span>cm</span>
 					</div>
 
+					<!-- 임시 (지금은 사용안함) -->
 					<!-- 프로필 사진 -->
 					<div class="e_pro_img">
 						<h4 id="e_h4_pro_img">프로필 사진</h4>
@@ -151,8 +178,8 @@
 							500px 이하의 jpg/png 파일을 첨부해주세요.</div>
 						<!-- 파일 업로드 -->
 						<label class="e_input_pro_img_btn" for="e_input_pro_img">
-							프로필 사진 업로드 </label> <input type="file" name="e_pro_img" value="none"
-							id="e_input_pro_img">
+							프로필 사진 업로드 </label>
+						<input type="file" value="none" id="e_input_pro_img">
 						<!-- 업로드 유무, 삭제하기 -->
 						<input type="hidden" id="e_upload" value="N">
 						<button type="button" id="e_delete_file">삭제</button>
@@ -160,8 +187,8 @@
 
 					<!-- 회원가입 버튼 -->
 					<div class="e_sub">
-						<input type="submit" id="e_sub_btn" value="회원가입"> <input
-							type="hidden" id="e_sub_btn_YN">
+						<input type="hidden" name="e_sub_btn_YN" id="e_sub_btn_YN" value="Y">
+						<input type="submit" id="e_sub_btn" value="회원가입">
 					</div>
 				</div>
 			</div>

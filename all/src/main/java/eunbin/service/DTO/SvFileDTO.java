@@ -1,4 +1,4 @@
-package eunbin.service;
+package eunbin.service.DTO;
 
 import java.sql.Date;
 

@@ -1,4 +1,4 @@
-package eunbin.service;
+package eunbin.main;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,25 +10,31 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/service/allService")
-public class AllServiceServlet extends HttpServlet  {
+import eunbin.loginjoin.MemberDAO;
+import eunbin.loginjoin.MemberDTO;
+import eunbin.service.DAO.ServiceDAO;
+import eunbin.service.DTO.ServiceDTO;
+
+@WebServlet("/main")
+public class MainServlet extends HttpServlet  {
 
 	// 페이지 뷰
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		RequestDispatcher dispatch = request.getRequestDispatcher("/service/jsp/allService.jsp");
+		System.out.println("MainServlet - get main");
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("/main/main.jsp");
 		dispatch.forward(request, response);
-		System.out.println("get allService");
 	}
 	
-	// 회원가입
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		System.out.println("post allService");
+		System.out.println("MainServlet - post main");
 	}
 }

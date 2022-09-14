@@ -2,6 +2,7 @@ package eunbin.loginjoin;
 
 import java.sql.Date;
 
+// 회원정보 테이블
 public class MemberDTO {
 	private int member_no;
 	private String id;

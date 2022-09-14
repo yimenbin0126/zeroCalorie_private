@@ -1,7 +1,6 @@
 // 전체 유효성 검사
 window.onload = function () {
     if(document.querySelector('#e_idCheck').style.display =="block"){
-    	alert("이게되네");
     }
     
     id_pass();
@@ -32,13 +31,9 @@ function id_pass() {
 		            e_input_id : document.querySelector('#e_input_id').value
 		        },
 		        success : function(data){
-		        	console.log("되긴됨");
 		        	if(data==0){
-		        		
-		        	console.log("0");
 		        		document.querySelector('#e_id_check').style.display ="block";
 		        	} else {
-		        	console.log("1");
 		        		alert('이미 존재하는 아이디 입니다.');
 		        	}
 		        },
@@ -49,7 +44,7 @@ function id_pass() {
 	// 중복 확인 후 건드렸을 때
 	document.querySelector('#e_input_id').addEventListener('keyup', function () {
 			document.querySelector('#e_id_check').style.display ="none";
-		});
+	});
 	
     // 대상, 에러
     var contents = [document.querySelector('#e_input_id'), document.querySelector('#e_input_pass'), document.querySelector('#e_input_pass_more')];
@@ -123,12 +118,40 @@ function nickname() {
     const regex_nn = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,5}$/;
 
     nickname.addEventListener('keyup', function () {
-        if (regex_nn.test(name.value) == true) {
+        if (regex_nn.test(nickname.value) == true) {
             error_nn.style.display = "none";
         } else {
             error_nn.style.display = "block";
         }
     });
+    
+    // 중복확인
+	// 중복확인 버튼 - 클릭
+	document.querySelector('#e_nickCheck').addEventListener('click', function () {
+		if(document.querySelector('#e_nick_check').style.display =="none"
+		&& document.querySelector('#e_input_nickname').value.length != 0){
+			$.ajax({
+		        url: "/all/join",
+		        type:"POST",
+		        data: {
+		            e_nickCheck_click : "Y",
+		            e_input_nick : document.querySelector('#e_input_nickname').value
+		        },
+		        success : function(data){
+		        	if(data==0){
+		        		document.querySelector('#e_nick_check').style.display ="block";
+		        	} else {
+		        		alert('이미 존재하는 닉네임 입니다.');
+		        	}
+		        },
+		    });
+		} 
+	});
+	
+	// 중복 확인 후 건드렸을 때
+	document.querySelector('#e_input_nickname').addEventListener('keyup', function () {
+			document.querySelector('#e_nick_check').style.display ="none";
+	});
 }
 
 
@@ -137,17 +160,14 @@ function birth() {
     var birth = document.querySelector("#e_input_birth");
     var error_b = document.querySelector("#e_birth_confirm");
 
-    // 연도 *1992/01/22
+    // 연도 *1992-01-22
     // 유효성 검사
     const regex_b = /^[0-9]*$/;
     
     birth.addEventListener('keyup', function () {
-        console.log("1",regex_b.test(birth.value.substring(0,4)))
-        console.log("2",regex_b.test(birth.value.substring(5)))
-        console.log("3",birth.value.substring(0,4))
         if (regex_b.test(birth.value.substring(0,4)) == true && regex_b.test(birth.value.substring(5,7)) == true
         && regex_b.test(birth.value.substring(8)) == true && birth.value.length == 10
-        && birth.value[4] == '/' && birth.value[7] == '/') {
+        && birth.value[4] == '-' && birth.value[7] == '-') {
             error_b.style.display = "none";
         } else {
             error_b.style.display = "block";
@@ -221,8 +241,8 @@ function height() {
     const regex_h = /^[0-9]{3,3}$/;
 
     height.addEventListener('keyup', function () {
-        if (regex_h.test(name.value) == true
-        && height > 100 && height < 200) {
+        if (regex_h.test(height.value) == true
+        && height.value > 100 && height.value < 200) {
             error_h.style.display = "none";
         } else {
             error_h.style.display = "block";
@@ -238,7 +258,8 @@ function join() {
 
         // 아이디
         if (document.querySelector('#e_id_confirm').style.display == "block"
-            || document.querySelector('#e_input_id').value.length == 0) {
+            || document.querySelector('#e_input_id').value.length == 0
+            || document.querySelector('#e_id_check').style.display == "none") {
                 e.preventDefault();
                 alert("아이디를 제대로 입력해주세요.");
                 document.querySelector('#e_input_id').focus();
@@ -279,6 +300,19 @@ function join() {
                     alert('이름을 입력해주세요.');
                     document.querySelector('#e_input_id').focus();
             } else {
+                nick_check();
+            }
+        }
+        
+        // 닉네임
+        function nick_check() {
+            if (document.querySelector('#e_nickname_confirm').style.display == "block"
+                || document.querySelector('#e_input_nickname').value.length == 0
+                || document.querySelector('#e_nick_check').style.display == "none") {
+                    e.preventDefault();
+                    alert('닉네임을 입력해주세요.');
+                    document.querySelector('#e_input_nickname').focus();
+            } else {
                 b_check();
             }
         }
@@ -297,8 +331,10 @@ function join() {
 
         // 성별
         function g_check() {
+        	var g_selectbox = document.querySelector('#e_sel_gender');
+        	var g_select = g_selectbox.options[g_selectbox.selectedIndex].value;
             if (document.querySelector('#e_gender_confirm').style.display == "block"
-                || document.querySelector('#e_sel_gender').value == '선택') {
+                || g_select == '선택') {
                     e.preventDefault();
                     alert('성별을 선택해주세요.');
                     document.querySelector('#e_sel_gender').focus();
@@ -312,7 +348,7 @@ function join() {
             const regex_ee = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
             if (document.querySelector('#e_email_confirm').style.display == "block"
-                || regex.test(document.querySelector('#e_input_email').value) === false) {
+                || regex_ee.test(document.querySelector('#e_input_email').value) === false) {
                     e.preventDefault();
                     alert('이메일을 제대로 입력해주세요.');
                     document.querySelector('#e_input_email').focus();
@@ -326,12 +362,35 @@ function join() {
             const regex_tt = /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/;
 
             if (document.querySelector('#e_tel_confirm').style.display == "block"
-                || regex.test(document.querySelector('#e_input_tel').value) === false) {
+                || regex_tt.test(document.querySelector('#e_input_tel').value) === false) {
                     e.preventDefault();
                     alert('전화번호를 제대로 입력해주세요.');
                     document.querySelector('#e_input_tel').focus();
+            } else {
+            	height();
             }
         }
+        
+        // 키
+        function height() {
+            if (document.querySelector('#e_height_confirm').style.display == "block"
+                || document.querySelector('#e_input_height').value.length == 0) {
+                    e.preventDefault();
+                    alert('키를 입력해주세요.');
+                    document.querySelector('#e_input_height').focus();
+            } 
+            else {
+            	join();
+            }
+        }
+        
         // 가입 완료
+        function join() {
+            var e_mainform = document.e_mainform;
+            e_mainform.method="post";
+            e_mainform.action="/all/join";
+            e_mainform.submit();
+            alert("회원가입이 완료되었습니다.");
+        }
     });
 }

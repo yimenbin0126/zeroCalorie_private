@@ -1,8 +1,7 @@
-package eunbin.service;
+package eunbin.loginjoin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,27 +9,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/service/question-write")
-public class QuestionWriteServlet extends HttpServlet  {
+// 로그아웃
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
 
-	// 페이지 뷰
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		RequestDispatcher dispatch = request.getRequestDispatcher("/service/jsp/question-write.jsp");
-		dispatch.forward(request, response);
-		System.out.println("get question");
+		System.out.println("LogoutServlet - get logout");
+		
+		// 로그인 세션 불러오기
+		HttpSession session = request.getSession();
+		session.invalidate();
+		PrintWriter out = response.getWriter();
+		out.println("<script language ='javascript'>alert('로그아웃 하였습니다.'); location.href='/all/main'; </script>");
+		out.flush();
 	}
-	
-	// 회원가입
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		System.out.println("post question");
-
+		System.out.println("LogoutServlet - post logout");
 	}
-
 }
