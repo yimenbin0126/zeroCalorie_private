@@ -63,8 +63,9 @@
 
 					<!-- 자동로그인 -->
 					<div class="e_auto_login">
+						<input type="hidden" name="e_auto_login_check" id="e_auto_login_check" value="N">
 						<input type="checkbox" name="e_auto_login"> <span
-							id="e_auto_logincheck">로그인 유지</span>
+							id="e_auto_login">자동 로그인</span>
 					</div>
 
 					<!-- 로그인 버튼-->

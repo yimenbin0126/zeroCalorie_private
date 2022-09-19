@@ -139,8 +139,8 @@ public class ServiceDAO {
         return list;
     }
     
-    // 특정 게시물 불러오기 - 부분 (detail 상세보기)
-    public ServiceDTO board_one(String _sv_type, int _group_origin) {
+    // 특정 게시물 불러오기 - 번호 (detail 상세보기)
+    public ServiceDTO board_one(int _bno) {
     	System.out.println("ServiceDAO - board_one - 특정 게시물 불러오기 - 부분 (detail 상세보기) 시작");
     	// 게시물 타입, 게시물그룹 대표번호로 게시물 번호 얻기
     	ServiceDTO  dto = new ServiceDTO();
@@ -150,8 +150,7 @@ public class ServiceDAO {
             // 쿼리문 작성
             String query = "SELECT * ";
             query += "FROM sv_board ";
-            query += "WHERE sv_type = '"+_sv_type+"'";
-            query += "AND group_origin = '"+_group_origin+"'";
+            query += "WHERE bno = '"+_bno+"'";
             System.out.println(query);
 
             // 쿼리문 저장
@@ -250,17 +249,18 @@ public class ServiceDAO {
             String query = "INSERT INTO sv_board ";
             query += "(bno, sv_type, group_origin, group_order, admin_type, nickname";
             query += ", title, description, create_time, heart, view_no, member_no) ";
-            query += "VALUES (sv_bno_SEQUENCE.NEXTVAL, ";
-            query += _sv_type+", ";
+            query += "VALUES (sv_bno_SEQUENCE.NEXTVAL, '";
+            query += _sv_type+"', ";
             query += "1, ";
-            query += "1, ";
-            query += board_admin_type(m_dto.getMember_no())+", ";
-            query += m_dto.getNickname()+", ";
-            query += _title+", ";
-            query += _description+", ";
-            query += date_re+", ";
+            query += "1, '";
+            query += board_admin_type(m_dto.getMember_no())+"', '";
+            query += m_dto.getNickname()+"', '";
+            query += _title+"', '";
+            query += _description+"', '";
+            query += date_re+"', ";
             query += "0, ";
-            query += "0)";
+            query += "0, ";
+            query += m_dto.getMember_no()+")";
             System.out.println(query);
 
             // 쿼리문 저장

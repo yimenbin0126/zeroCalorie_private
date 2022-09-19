@@ -2,7 +2,6 @@
 window.onload = function () {
     if(document.querySelector('#e_idCheck').style.display =="block"){
     }
-    
     id_pass();
     name();
     nickname();
@@ -11,6 +10,7 @@ window.onload = function () {
     email();
     height();
     tel();
+    pro_file();
     join();
 };
 
@@ -18,8 +18,8 @@ window.onload = function () {
 function id_pass() {
 
 	
-	// 중복확인
-	// 중복확인 버튼 - 클릭
+	// 아이디 중복확인
+	// 아이디 중복확인 버튼 - 클릭
 	document.querySelector('#e_idCheck').addEventListener('click', function () {
 		if(document.querySelector('#e_id_check').style.display =="none"
 		&& document.querySelector('#e_input_id').value.length != 0){
@@ -41,7 +41,7 @@ function id_pass() {
 		} 
 	});
 	
-	// 중복 확인 후 건드렸을 때
+	// 아이디 중복 확인 후 건드렸을 때
 	document.querySelector('#e_input_id').addEventListener('keyup', function () {
 			document.querySelector('#e_id_check').style.display ="none";
 	});
@@ -250,6 +250,40 @@ function height() {
     });
 }
 
+// 프로필 사진
+function pro_file() {
+	// 유효성 검사 초기화
+	document.querySelector('#e_pro_img_confirm').style.display = "block";
+	
+	// 선언 - input 파일, 파일 이미지 뷰, 파일이름
+	var input_pro = document.querySelector('#e_input_pro_img');
+	var e_view = document.querySelector('.e_pro_img_view img');
+	var e_name = document.querySelector('.e_pro_img_name');
+	
+	// 이미지 미리보기
+	input_pro.addEventListener("change",()=>{
+		// input 에 파일이 있는 경우 (첫번째 파일)
+		if (input_pro.files && input_pro.files[0]) {
+			// 파일 객체를 읽어줌
+		    var reader = new FileReader();
+		    reader.onload = function(e) {
+				e_name.innerHTML = "파일명 : "+input_pro.files[0].name;
+		      	e_view.src = e.target.result;
+		      	document.querySelector('#e_pro_img_confirm').style.display = "none";
+	    	};
+	    	reader.readAsDataURL(input_pro.files[0]);
+		  } else {
+		  		e_name.innerHTML = "";
+		    	e_view.src = "";
+		    	document.querySelector('#e_pro_img_confirm').style.display = "block";
+		  }	
+	});
+    
+    // 삭제 시
+    document.querySelector('#e_delete_file').addEventListener('click',()=>{
+    	input_pro.value = "";
+    });
+}
 
 // 가입버튼
 function join() {
@@ -334,7 +368,7 @@ function join() {
         	var g_selectbox = document.querySelector('#e_sel_gender');
         	var g_select = g_selectbox.options[g_selectbox.selectedIndex].value;
             if (document.querySelector('#e_gender_confirm').style.display == "block"
-                || g_select == '선택') {
+                || g_select == 'e_none') {
                     e.preventDefault();
                     alert('성별을 선택해주세요.');
                     document.querySelector('#e_sel_gender').focus();
@@ -380,15 +414,27 @@ function join() {
                     document.querySelector('#e_input_height').focus();
             } 
             else {
-            	join();
+            	file();
             }
         }
+        
+        // 프로필 사진
+        function file() {
+			if(document.querySelector('#e_input_pro_img').value == ""){
+				document.querySelector('#e_pro_img_confirm').style.display = "block";
+				e.preventDefault();
+                alert('프로필 사진을 입력해주세요.');
+                document.querySelector('#e_input_pro_img').focus();
+			} else {
+            	join();
+            }
+		}
         
         // 가입 완료
         function join() {
             var e_mainform = document.e_mainform;
             e_mainform.method="post";
-            e_mainform.action="/all/join";
+            e_mainform.action="/all/joinComplet";
             e_mainform.submit();
             alert("회원가입이 완료되었습니다.");
         }

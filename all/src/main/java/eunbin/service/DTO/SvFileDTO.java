@@ -1,7 +1,5 @@
 package eunbin.service.DTO;
 
-import java.sql.Date;
-
 public class SvFileDTO {
 	private int bno;
 	private String filename;

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-
+    pageEncoding="UTF-8"
+    isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
     <script src="join/js/join.js"></script>
     <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -39,8 +41,7 @@
 
 	<section>
 		<!-- 프로필 파일 올릴때  -->
-		<!-- <form name="e_mainform" enctype="multipart/form-data"> -->
-		<form name="e_mainform">
+		<form name="e_mainform" enctype="multipart/form-data">
 			<div id="j_wrap">
 				<div id="j_box">
 
@@ -174,15 +175,19 @@
 					<!-- 프로필 사진 -->
 					<div class="e_pro_img">
 						<h4 id="e_h4_pro_img">프로필 사진</h4>
-						<div id="e_pro_img_confirm" class="e_errorindex">*가로, 세로 각각
-							500px 이하의 jpg/png 파일을 첨부해주세요.</div>
+						<div id="e_pro_img_confirm" class="e_errorindex">*jpg/jpeg/png 파일을 첨부해주세요.</div>
 						<!-- 파일 업로드 -->
 						<label class="e_input_pro_img_btn" for="e_input_pro_img">
 							프로필 사진 업로드 </label>
-						<input type="file" value="none" id="e_input_pro_img">
-						<!-- 업로드 유무, 삭제하기 -->
-						<input type="hidden" id="e_upload" value="N">
+						<input type="file" name="e_pro_img" id="e_input_pro_img" accept=".jpg, .jpeg, .png">
+						<!-- 파일 유효성 검사, 삭제하기 -->
 						<button type="button" id="e_delete_file">삭제</button>
+						<!-- 이미지 미리보기, 파일이름 -->
+						<div class="e_pro_img_view">
+							<img>
+						</div>
+						<div class="e_pro_img_name">
+						</div>
 					</div>
 
 					<!-- 회원가입 버튼 -->

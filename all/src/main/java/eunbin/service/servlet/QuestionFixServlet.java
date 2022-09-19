@@ -62,17 +62,17 @@ public class QuestionFixServlet extends HttpServlet  {
 		ServiceDAO s_dao = new ServiceDAO();
 		
 		// 게시물 정보 값 불러오기
-		String sv_type = request.getParameter("e_sv_type");
-		int group_origin = Integer.valueOf((String)request.getParameter("e_group_origin"));
+		int e_bno = Integer.valueOf(request.getParameter("e_bno"));
 		String e_ti_detail_input = request.getParameter("e_ti_detail_input");
 		String e_cont_detail_input = request.getParameter("e_cont_detail_input");
-		s_dto = s_dao.board_one(sv_type, group_origin);
+		s_dto = s_dao.board_one(e_bno);
 		
 		// 게시물 수정
 		s_dao.board_fix(s_dto.getBno(), e_ti_detail_input, e_cont_detail_input);
 		
 		// 게시판 메인 페이지로 이동
-		RequestDispatcher dispatch = request.getRequestDispatcher("/service/jsp/question.jsp");
-		dispatch.forward(request, response);
+		PrintWriter out = response.getWriter();
+		out.println("<script>location.href='/all/service/question-member'</script>");
+		out.flush();
 	}
 }

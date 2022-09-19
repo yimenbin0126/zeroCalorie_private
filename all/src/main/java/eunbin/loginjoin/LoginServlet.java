@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +62,17 @@ public class LoginServlet extends HttpServlet {
 			// 세션에 회원정보 등록
 			session.setAttribute("user", dto);
 			System.out.println("로그인 완료");
+			
+			// 자동로그인 체크 여부 - 체크 했을 시
+			if (request.getParameter("e_auto_login_check").equals("Y")
+					&& request.getParameter("e_auto_login_check") != null) {
+				Cookie cookie = new Cookie("userId", session.getId());
+				cookie.setPath("/");
+				// 유효기간 7일
+				cookie.setMaxAge(60*60*24*7);
+				// 쿠키 적용
+				response.addCookie(cookie); 
+			}
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("/main/main.jsp");
 			dispatch.forward(request, response);

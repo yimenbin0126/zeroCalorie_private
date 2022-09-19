@@ -25,7 +25,7 @@ public class QuestionWriteServlet extends HttpServlet  {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		System.out.println("QuestionWriteServlet - get question");
+		System.out.println("QuestionWriteServlet - get question-write");
 		
 		// 세션 생성
 		HttpSession session = request.getSession();
@@ -48,7 +48,7 @@ public class QuestionWriteServlet extends HttpServlet  {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		System.out.println("QuestionWriteServlet - post question");
+		System.out.println("QuestionWriteServlet - post question-write");
 		
 		// 데이터 불러오기 위한 선언
 		MemberDTO m_dto = new MemberDTO();
@@ -70,8 +70,9 @@ public class QuestionWriteServlet extends HttpServlet  {
 		s_dao.board_write(m_dto, sv_type, title,description);
 		
 		// 게시판 메인 홈페이지로 돌아가기
-		RequestDispatcher dispatch = request.getRequestDispatcher("/service/jsp/question.jsp");
-		dispatch.forward(request, response);
+		PrintWriter out = response.getWriter();
+		out.println("<script>location.href='/all/service/question-member'</script>");
+		out.flush();
 	}
 
 }

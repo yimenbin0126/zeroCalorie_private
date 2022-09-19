@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <title>고객센터</title>
 <link rel="stylesheet" href="./css/header.css">
-<link rel="stylesheet" href="./css/question.css">
-<script src="./js/question.js"></script>
+<link rel="stylesheet" href="./css/question-guide.css">
+<script src="./js/question-guide.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
@@ -37,11 +37,13 @@
      		// 로그인 유무
         	if((MemberDTO)session.getAttribute("user") !=null){
         		m_dto = (MemberDTO)session.getAttribute("user");
+        		System.out.println((MemberDTO)session.getAttribute("user"));
+        		System.out.println(m_dto.getNickname());
         %>
-        <div id="e_welcome">
-        	<p>${m_dto.getNickname()}님 환영합니다.</p>
-        </div>
         <div id = e_nav>
+        	<div id="e_welcome">
+        		<%=m_dto.getNickname()%>님 환영합니다.
+        	</div>
         	<form name="e_nav_btn">
 	        	<input type ="hidden" name="e_logout" value="Y">                   
         	</form>
@@ -50,8 +52,8 @@
             <input type ='hidden' class = "j_btn2 j_btn" onclick="location.href='/all/join'" value="회원가입">
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
-            <input type ='button' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='button' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
+            <input type ='button' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='button' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
             <!-- 나타나는 부분 끝 -->
         </div>
         <%
@@ -59,8 +61,8 @@
         %>
         <div id = j_nav>
         	<!-- null 오류 방지용 시작 -->
-            <input type ='hidden' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='hidden' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
+            <input type ='hidden' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='hidden' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
             <input type ='button' class = "j_btn1 j_btn" onclick="location.href='/all/login'" value="로그인">
@@ -91,7 +93,7 @@
 							문의 전체보기
 						</div>
 						<!-- 자주하는 질문 -->
-						<div class="e_nav_question" onclick="location.href='/all/service/question'">
+						<div class="e_nav_question" onclick="location.href='/all/service/question-member'">
 							<div class="e_que_div">자주하는 질문</div>
 							<div><img src="./img/category_click.png"></div>
 						</div>
@@ -133,15 +135,18 @@
 								<form name="e_hd_choice_form">
 									<input type="hidden" name="e_hd_choice_LR" id="e_hd_choice_LR" value="L">
 								</form>
-								<div id="e_choice_mem">회원 정보 관리</div>
+								<div id="e_choice_mem" onclick="location.href='/all/service/question-member'">회원 정보 관리</div>
 								<div id="e_choice_guide">사이트 이용 가이드</div>
 							</div>
 						</div>
 
-						<!-- 카데고리별 -->
+						<!-- 게시물 불러오기 - 사이트 이용 가이드 -->
 						<div class="e_content">
-							<!-- 회원 정보 관리 -->
-							<div class="e_con_mem">
+							<!-- 게시물 번호 보내기 - 상세보기 -->
+							<form name="e_bno_val_form" id="e_bno_val_form">
+								<input type="hidden" name="e_bno_val" id="e_bno_val">
+							</form>
+							<div id="e_con_guide">
 								<ul>
 									<li>번호</li>
 									<li>제목</li>
@@ -151,48 +156,21 @@
 								</ul>
 								<%
 									// 게시물들 불러오기
-									if((ArrayList<ServiceDTO>)request.getAttribute("s_dto_list")!=null){
+									if((ArrayList<ServiceDTO>)request.getAttribute("s_dto_list")!=null
+										&& ((ArrayList<ServiceDTO>)request.getAttribute("s_dto_list")).size()!=0){
 										s_dto_list = (ArrayList<ServiceDTO>)request.getAttribute("s_dto_list");
+										int j = s_dto_list.size()+1;
 										for(int i=0; i<s_dto_list.size(); i++){
+											j--;
 											ServiceDTO s_dto = new ServiceDTO();
 											s_dto = s_dto_list.get(i);
 								%>
-								<ul>
-									<li>${s_dto.getGroup_order()}</li>
-									<li>${s_dto.getTitle()}</li>
-									<li>${s_dto.getNickname()}</li>
-									<li>${s_dto.getCreate_time()}</li>
-									<li>${s_dto.getHeart()}</li>
-								</ul>
-								<%
-										}
-									}
-								%>
-							</div>
-
-							<!-- 사이트 이용 가이드 -->
-							<div class="e_con_guide">
-								<ul>
-									<li>번호</li>
-									<li>제목</li>
-									<li>글쓴이</li>
-									<li>작성시간</li>
-									<li>좋아요</li>
-								</ul>
-								<%
-									// 게시물들 불러오기
-									if((ArrayList<ServiceDTO>)request.getAttribute("s_dto_list")!=null){
-										s_dto_list = (ArrayList<ServiceDTO>)request.getAttribute("s_dto_list");
-										for(int i=0; i<s_dto_list.size(); i++){
-											ServiceDTO s_dto = new ServiceDTO();
-											s_dto = s_dto_list.get(i);
-								%>
-								<ul>
-									<li>${s_dto.getGroup_order()}</li>
-									<li>${s_dto.getTitle()}</li>
-									<li>${s_dto.getNickname()}</li>
-									<li>${s_dto.getCreate_time()}</li>
-									<li>${s_dto.getHeart()}</li>
+								<ul class="e_boardlist">
+									<li value="<%=s_dto.getBno()%>"><%=j%></li>
+									<li><%=s_dto.getTitle()%></li>
+									<li><%=s_dto.getNickname()%></li>
+									<li><%=s_dto.getCreate_time()%></li>
+									<li><%=s_dto.getHeart()%></li>
 								</ul>
 								<%
 										}

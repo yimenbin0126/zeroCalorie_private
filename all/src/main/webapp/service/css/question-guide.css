@@ -79,7 +79,7 @@
 	padding: 20px 132px 20px 132px;
 }
 
-#e_choice_mem {
+#e_choice_guide {
 	color: white;
 	background-color: gray;
 }
@@ -88,11 +88,6 @@
 /* 카데고리별 */
 .e_content {
 	margin: 0px 60px 0px 50px;
-}
-
-/* 사이트 이용 가이드 가리기 */
-.e_con_guide {
-	display: none;
 }
 
 /* 회원정보 관리 */

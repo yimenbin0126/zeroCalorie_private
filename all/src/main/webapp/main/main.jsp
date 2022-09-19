@@ -38,7 +38,7 @@
         %>
         <div id = e_nav>
         	<div id="e_welcome">
-        		${m_dto.getNickname()}님 환영합니다.
+        		<%=m_dto.getNickname()%>님 환영합니다.
         	</div>
         	<form name="e_nav_btn">
 	        	<input type ="hidden" name="e_logout" value="Y">                   

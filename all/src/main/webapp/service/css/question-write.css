@@ -49,7 +49,8 @@
 	border-bottom: 1px solid gray;
 }
 
-.e_content{
+/* 카데고리별 */
+.e_content, .e_content_choice {
 	padding-left: 50px;
 	padding-right: 50px;	
 }
@@ -58,7 +59,18 @@
 	display: flex;
 }
 
+/* 글쓰기 유형 선택 */
+.e_select_title {
+	font-weight: bold;
+	font-size: 17px;
+}
 
+#e_con_choice {
+	padding: 10px;
+	margin: 10px 0px 15px 0px;
+}
+
+/* 글쓰기 */
 .e_ti_title, .e_cont_title {
 	font-weight: bold;
 	background-color: lightgray;
@@ -78,22 +90,40 @@
 }
 
 /* 글쓰기 내용 */
+.e_ti_detail, .e_cont_detail {
+	background-color: white;
+	width:633px;
+}
+
 .e_ti_detail {
-	padding-left: 10px;
+	padding-left: 15px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
 
 .e_cont_detail {
-	padding-left: 10px;
+	padding-left: 15px;
 	padding-top: 10px;
-	padding-bottom: 400px;
 }
 
 .e_con_content {
 	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
 }
+
+/* 글쓰기 내용 - input */
+#e_ti_detail_input,
+#e_cont_detail_input {
+	width: 610px;
+	border: none;
+	outline: 0;
+}
+
+#e_cont_detail_input {
+	resize: none;
+	height: 400px;
+}
+
 
 
 /* 글쓰기 버튼 */
@@ -104,9 +134,15 @@
 
 .e_btn_write {
 	text-align: center;
-	padding: 10px;
+	margin: 0 auto;
+}
+
+.e_btn_write input {
+	font-weight: bold;
+	font-size: 15px;
+	width: 100px;
+	padding: 15px;
+	border: none;
 	color: white;
 	background-color: blue;
-	width: 100px;
-	margin: 0 auto;
 }

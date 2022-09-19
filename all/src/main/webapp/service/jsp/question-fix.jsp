@@ -36,11 +36,13 @@
      		// 로그인 유무
         	if((MemberDTO)session.getAttribute("user") !=null){
         		m_dto = (MemberDTO)session.getAttribute("user");
+        		System.out.println((MemberDTO)session.getAttribute("user"));
+        		System.out.println(m_dto.getNickname());
         %>
-        <div id="e_welcome">
-        	<p>${m_dto.getNickname()}님 환영합니다.</p>
-        </div>
         <div id = e_nav>
+        	<div id="e_welcome">
+        		<%=m_dto.getNickname()%>님 환영합니다.
+        	</div>
         	<form name="e_nav_btn">
 	        	<input type ="hidden" name="e_logout" value="Y">                   
         	</form>
@@ -49,8 +51,8 @@
             <input type ='hidden' class = "j_btn2 j_btn" onclick="location.href='/all/join'" value="회원가입">
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
-            <input type ='button' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='button' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
+            <input type ='button' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='button' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
             <!-- 나타나는 부분 끝 -->
         </div>
         <%
@@ -58,8 +60,8 @@
         %>
         <div id = j_nav>
         	<!-- null 오류 방지용 시작 -->
-            <input type ='hidden' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='hidden' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
+            <input type ='hidden' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='hidden' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
             <input type ='button' class = "j_btn1 j_btn" onclick="location.href='/all/login'" value="로그인">
@@ -82,7 +84,7 @@
 						<!-- 문의 전체보기 -->
 						<div class="e_nav_all" onclick="location.href='/all/service/allService'">문의 전체보기</div>
 						<!-- 자주하는 질문 -->
-						<div class="e_nav_question" onclick="location.href='/all/service/question'">
+						<div class="e_nav_question" onclick="location.href='/all/service/question-member'">
 							<span>자주하는 질문</span> <img src="./img/category_click.png">
 						</div>
 
@@ -98,22 +100,22 @@
 						s_dto = (ServiceDTO)request.getAttribute("s_dto");
 					%>
 					<!-- 오른쪽 내용 -->
-					<form name="e_fix_form">
-						<div class="e_right">
-							<!-- 상단 -->
-							<div class="e_header">
-								<div class="e_hd_top">고객센터 &gt; 자주하는 질문 &gt; 글수정[관리자]</div>
-								<div class="e_hd_top_title">글수정[관리자]</div>
-							</div>
+					<div class="e_right">
+						<!-- 상단 -->
+						<div class="e_header">
+							<div class="e_hd_top">고객센터 &gt; 자주하는 질문 &gt; 글수정[관리자]</div>
+							<div class="e_hd_top_title">글수정[관리자]</div>
+						</div>
 
-							<!-- 카데고리별 -->
+						<!-- 카데고리별 -->
+						<form name="e_fix_form">
 							<div class="e_content">
 								<!-- 글쓰기 제목 -->
 								<div class="e_con_title">
 									<div class="e_ti_title">제목</div>
 									<div class="e_ti_detail">
-										<input type="text" name="e_ti_detail_input" id="e_ti_detail_input"
-										value="${s_dto.getTitle()}">
+										<input type="text" name="e_ti_detail_input"
+											id="e_ti_detail_input" value="<%=s_dto.getTitle()%>">
 									</div>
 								</div>
 
@@ -121,8 +123,8 @@
 								<div class="e_con_content">
 									<div class="e_cont_title">내용</div>
 									<div class="e_cont_detail">
-										<input type="text" name="e_cont_detail_input" id="e_cont_detail_input"
-										value="${s_dto.getDescription()}">
+										<textarea name="e_cont_detail_input"
+											id="e_cont_detail_input"><%=s_dto.getDescription()%></textarea>
 									</div>
 								</div>
 							</div>
@@ -131,13 +133,13 @@
 							<div class="e_button">
 								<div class="e_btn_fix">
 									<!-- 게시판 데이터 보내기 -->
-									<input type="hidden" name="e_sv_type" value="${s_dto.getSv_type()}">
-									<input type="hidden" name="e_group_origin" value="${s_dto.getGroup_origin()}">
-									<input type="submit" value="수정 완료" id="e_btn_fix_btn">
+									<input type="hidden" name="e_bno" id="e_bno"
+										value="<%=s_dto.getBno()%>">
+										<input type="submit" value="수정 완료" id="e_btn_fix_btn">
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 					
 				</div>
 

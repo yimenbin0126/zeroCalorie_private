@@ -34,11 +34,13 @@
      		// 로그인 유무
         	if((MemberDTO)session.getAttribute("user") !=null){
         		m_dto = (MemberDTO)session.getAttribute("user");
+        		System.out.println((MemberDTO)session.getAttribute("user"));
+        		System.out.println(m_dto.getNickname());
         %>
-        <div id="e_welcome">
-        	<p>${m_dto.getNickname()}님 환영합니다.</p>
-        </div>
         <div id = e_nav>
+        	<div id="e_welcome">
+        		<%=m_dto.getNickname()%>님 환영합니다.
+        	</div>
         	<form name="e_nav_btn">
 	        	<input type ="hidden" name="e_logout" value="Y">                   
         	</form>
@@ -47,8 +49,8 @@
             <input type ='hidden' class = "j_btn2 j_btn" onclick="location.href='/all/join'" value="회원가입">
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
-            <input type ='button' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='button' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
+            <input type ='button' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='button' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">
             <!-- 나타나는 부분 끝 -->
         </div>
         <%
@@ -56,8 +58,8 @@
         %>
         <div id = j_nav>
         	<!-- null 오류 방지용 시작 -->
-            <input type ='hidden' class = "e_btn" onclick="location.href='/all/logout'" value="로그아웃">
-            <input type ='hidden' class = "e_btn2" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
+            <input type ='hidden' class = "e_btn e_btn" onclick="location.href='/all/logout'" value="로그아웃">
+            <input type ='hidden' class = "e_btn2 e_btn" onclick="location.href='../mypage/mypage.html'" value="마이페이지">               
             <!-- null 오류 방지용 끝 -->
             <!-- 나타나는 부분 시작 -->
             <input type ='button' class = "j_btn1 j_btn" onclick="location.href='/all/login'" value="로그인">

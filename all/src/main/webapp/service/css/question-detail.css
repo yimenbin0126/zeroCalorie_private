@@ -123,14 +123,21 @@
 	justify-content: center;
 }
 
-.e_button div {
+.e_btn_css {
 	margin: 30px 0px 30px 0px;
 	margin-right: 20px;
 	text-align: center;
+	font-size: 15px;
 	font-weight: bold;
 	padding: 13px;
 	width:90px;
+	border: none;
 	background-color: lightgray;
+}
+
+#e_btn_delete, #e_btn_fix {
+	color: white;
+	background-color: blue;
 }
 
 .e_hidden {
