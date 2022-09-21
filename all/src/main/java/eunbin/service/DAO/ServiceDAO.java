@@ -51,7 +51,6 @@ public class ServiceDAO {
 			query += "FROM sv_board ";
 			query += "WHERE sv_type = '" + _sv_type + "'";
 			query += "ORDER BY bno desc";
-			System.out.println(query);
 
 			// 쿼리문 저장
 			pstmt = con.prepareStatement(query);
@@ -253,7 +252,7 @@ public class ServiceDAO {
             query += _sv_type+"', ";
             query += "1, ";
             query += "1, '";
-            query += board_admin_type(m_dto.getMember_no())+"', '";
+            query += board_admin_type(m_dto.getId())+"', '";
             query += m_dto.getNickname()+"', '";
             query += _title+"', '";
             query += _description+"', '";
@@ -328,10 +327,10 @@ public class ServiceDAO {
         System.out.println("ServiceDAO - board_fix - 글 수정 끝");
     }
     
-    // 관리자 여부 반환 (3333 == 관리자)
-    public String board_admin_type(int _member_no) {
+    // 관리자 여부 반환 (admin == 관리자 아이디)
+    public String board_admin_type(String id) {
     	System.out.println("ServiceDAO - board_admin_type - 관리자 여부 반환 시작");
-    	if(_member_no == 3333) {
+    	if(id.equals("admin")) {
     		System.out.println("관리자 여부 : 관리자");
     		System.out.println("ServiceDAO - board_admin_type - 관리자 여부 반환 끝");
     		return "Y";

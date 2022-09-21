@@ -20,23 +20,22 @@
     <div id="j_hi">
         <!-- <img src="./img/logo.png" id="j_logo"> -->
         
+        <%
+           // 데이터 불러오기 위한 선언
+           MemberDTO m_dto = new MemberDTO();
+           MemberDAO m_dao = new MemberDAO();
+           
+           // 로그인 유무
+           if((MemberDTO)session.getAttribute("user") !=null){
+              m_dto = (MemberDTO)session.getAttribute("user");
+        %>
         <ul id="j_list">
-            <li class="j_menu1 j_menu">캘린더</li>
+            <li class="j_menu1 j_menu" onclick="location.href='/all/cal/<%=m_dto.getId()%>'">캘린더</li>
             <li class="j_menu2 j_menu">커뮤니티</li>
             <li class="j_menu3 j_menu">공지사항</li>
             <li class="j_menu4 j_menu">운동</li>
             <li class="j_menu5 j_menu" onclick="location.href='/all/service/allService'">고객센터</li>
         </ul>
-        <%
-        
-     		// 데이터 불러오기 위한 선언
-     		MemberDTO m_dto = new MemberDTO();
-     		MemberDAO m_dao = new MemberDAO();
-     		
-     		// 로그인 유무
-        	if((MemberDTO)session.getAttribute("user") !=null){
-        		m_dto = (MemberDTO)session.getAttribute("user");
-        %>
         <div id = e_nav>
         	<div id="e_welcome">
         		<%=m_dto.getNickname()%>님 환영합니다.
@@ -148,7 +147,7 @@
 						<div class="e_button">
 						<%
 							if ((MemberDTO)session.getAttribute("user") !=null
-							&& s_dao.board_admin_type((int)m_dto.getMember_no()).equals("Y")){
+							&& s_dao.board_admin_type(m_dto.getId()).equals("Y")){
 						%>
 							<input type="hidden" id="e_hidden_YN" value="Y">
 						<%

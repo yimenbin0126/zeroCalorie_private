@@ -67,7 +67,7 @@ public class QuestionWriteServlet extends HttpServlet  {
 		String description = request.getParameter("e_cont_detail_input");
 		
 		// 데이터 저장
-		s_dao.board_write(m_dto, sv_type, title,description);
+		s_dao.board_write(m_dto, sv_type, title, description);
 		
 		// 게시판 메인 홈페이지로 돌아가기
 		PrintWriter out = response.getWriter();
